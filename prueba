@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Contingencia de Falcón - Infografía Interactiva</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .section-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .subsection {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .toggle-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .section-header h2 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Plan de Contingencia de Falcón</h1>
+        <p>Infografía Interactiva</p>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('escenarios')">
+                <h2><span class="icon">📊</span>Escenarios</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="escenarios" class="section-content">
+                <div class="subsection">
+                    <h3>Escenario más probable</h3>
+                    <p><strong>1200 familias</strong> con necesidad de asistencia humanitaria</p>
+                    <p><strong>4318 personas</strong> con necesidad de asistencia inmediata</p>
+                </div>
+                <div class="subsection">
+                    <h3>Escenario con mayor impacto</h3>
+                    <p><strong>3418 familias</strong> con necesidad de asistencia humanitaria</p>
+                    <p><strong>13438 personas</strong> con necesidad de asistencia inmediata</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="scenariosChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('analisis')">
+                <h2><span class="icon">🔍</span>Análisis de la Situación</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="analisis" class="section-content">
+                <p>El estado Falcón está ubicado en el noroeste de Venezuela, con una geografía diversa que incluye zonas costeras, montañosas y desérticas.</p>
+                <p>El INAMEH ha estimado la llegada a Venezuela de entre 55 y 65 ondas tropicales que podrían intensificar las lluvias localmente.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('estrategia')">
+                <h2><span class="icon">🎯</span>Estrategia de Respuesta</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="estrategia" class="section-content">
+                <h3>Objetivos principales:</h3>
+                <ol>
+                    <li>Garantizar la asistencia humanitaria oportuna</li>
+                    <li>Garantizar el acceso a los bienes y servicios para una asistencia integral</li>
+                </ol>
+                <h3>Sectores de Intervención:</h3>
+                <ul>
+                    <li>Alojamiento, Enseres y Energía</li>
+                    <li>Nutrición</li>
+                    <li>Protección</li>
+                    <li>Salud</li>
+                    <li>Agua, Saneamiento e Higiene (ASH)</li>
+                    <li>Seguridad Alimentaria y Medios de Vida</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('coordinacion')">
+                <h2><span class="icon">🤝</span>Coordinación</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="coordinacion" class="section-content">
+                <h3>Pasos para la Activación del Plan de Contingencia:</h3>
+                <ol>
+                    <li>Recepción de solicitud de asistencia</li>
+                    <li>Validación de información</li>
+                    <li>Reunión del Grupo de Gestión de Emergencias</li>
+                    <li>Despliegue interorganizacional</li>
+                    <li>Reunión con autoridades</li>
+                    <li>Misión de reconocimiento</li>
+                    <li>Despliegue de la asistencia</li>
+                    <li>Monitoreo de la respuesta</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('consideraciones')">
+                <h2><span class="icon">⚠️</span>Consideraciones Específicas para Falcón</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="consideraciones" class="section-content">
+                <div class="subsection">
+                    <h3>Vulnerabilidades particulares:</h3>
+                    <ul>
+                        <li>Extenso litoral</li>
+                        <li>Zonas áridas y semiáridas</li>
+                        <li>Infraestructura crítica</li>
+                        <li>Dependencia del turismo</li>
+                        <li>Comunidades indígenas</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>Capacidades locales y recursos disponibles:</h3>
+                    <ul>
+                        <li>Protección Civil Falcón</li>
+                        <li>Cruz Roja Falcón</li>
+                        <li>Universidades</li>
+                        <li>Sector privado</li>
+                        <li>Pescadores y comunidades costeras</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('procedimientos')">
+                <h2><span class="icon">📋</span>Procedimientos Operativos Estándar (SOPs)</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="procedimientos" class="section-content">
+                <table>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Periodo</th>
+                        <th>Acciones principales</th>
+                    </tr>
+                    <tr>
+                        <td>Monitoreo de amenaza</td>
+                        <td>48 horas previo al evento</td>
+                        <td>Activación de mecanismos de monitoreo, revisión de preparación</td>
+                    </tr>
+                    <tr>
+                        <td>Alerta</td>
+                        <td>24 horas previo al evento</td>
+                        <td>Activación de árbol de llamadas, elaboración de plan de contingencia específico</td>
+                    </tr>
+                    <tr>
+                        <td>Respuesta</td>
+                        <td>72 horas después del evento</td>
+                        <td>Activación del plan, evaluaciones rápidas, elaboración del plan de respuesta</td>
+                    </tr>
+                    <tr>
+                        <td>Transición</td>
+                        <td>Después de las primeras 72 horas</td>
+                        <td>Reuniones extraordinarias, monitoreo de operaciones, elaboración de informes</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('conclusiones')">
+                <h2><span class="icon">📝</span>Conclusiones y Recomendaciones</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="conclusiones" class="section-content">
+                <h3>Principales Recomendaciones:</h3>
+                <ol>
+                    <li>Fortalecer la coordinación entre actores gubernamentales, humanitarios y del sector privado.</li>
+                    <li>Invertir en medidas de mitigación de riesgos, especialmente en zonas costeras y áridas.</li>
+                    <li>Mejorar los sistemas de alerta temprana y comunicación de riesgos.</li>
+                    <li>Desarrollar capacidades locales para una respuesta más efectiva y contextualizada.</li>
+                    <li>Integrar consideraciones de cambio climático en la planificación a largo plazo.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            var content = document.getElementById(id);
+            var header = content.previousElementSibling;
+            var icon = header.querySelector('.toggle-icon');
+            
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.textContent = "▼";
+            } else {
+                content.style.display = "block";
+                icon.textContent = "▲";
+            }
+        }
+
+        // Crear gráfico de escenarios
+        var ctx = document.getElementById('scenariosChart').getContext('2d');
+        var scenariosChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Escenario más probable', 'Escenario con mayor impacto'],
+                datasets: [{
+                    label: 'Familias afectadas',
+                    data: [1200, 3418],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 99, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
